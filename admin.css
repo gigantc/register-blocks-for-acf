@@ -1,0 +1,345 @@
+
+/* Hide right sidebar */
+#postbox-container-1 {
+  display: none;
+}
+/* Expand main content area */
+#post-body.columns-2 #post-body-content {
+  width: 100%;
+}
+#poststuff {
+  padding-right: 0;
+}
+/* Force single-column layout */
+body.post-type-acf_block_template #post-body.columns-2 {
+  min-width: 100%;
+  display: block;
+}
+/* Expand the content area */
+body.post-type-acf_block_template #post-body-content {
+  width: 100% !important;
+  margin-right: 0 !important;
+  float: none !important;
+}
+body.post-type-acf_block_template #poststuff {
+  padding: 0;
+  margin: 0;
+}
+/* remove the edit block  */
+body.post-type-acf_block_template .wrap > h1.wp-heading-inline {
+  display: none !important;
+}
+body.post-type-acf_block_template .page-title-action {
+  display: none !important;
+}
+#wpcontent{
+  padding:0px;
+}
+.wrap{
+  margin:0px;
+}
+
+
+#acf_block_details{
+  border-radius:10px;
+  border-color:white;
+}
+#acf_block_details .inside{
+  padding:0px;
+  margin:0px;
+}
+#acf_block_details .postbox-header{
+  border:none;
+}
+
+#titlewrap #title{
+  border-radius: 10px;
+  padding:5px 10px;
+  border-color: #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#titlewrap #title:focus{
+  outline: 3px solid #ebf5fa;
+  border-color: #399ccb;
+}
+
+#df-svg-icon button,
+#df-header button,
+#df-image button{
+  min-height: 40px;
+  margin:10px 0px 0px 0px;
+  background-color: #0783be;
+  border-radius: 10px;
+  border: 1px solid rgba(16, 24, 40, .2);
+  text-decoration: none;
+  color: #fff !important;
+  transition: all .2s ease-in-out;
+  transition-property: background, border, box-shadow;
+}
+#df-svg-icon button:hover,
+#df-image button:hover{
+  background-color:#066998;
+}
+
+#add-new{
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0px 16px;
+  margin:0px 8px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #0783be;
+  text-decoration: none;
+  color: #0783be !important;
+  transition: all .2s ease-in-out;
+  transition-property: background, border, box-shadow;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#add-new:hover{
+  background-color:rgb(243.16, 249.08, 252.04);
+}
+
+
+
+.section{
+  padding:30px 20px 30px 20px;
+  background-color:rgb(250, 250, 250);
+  border-bottom:1px solid #f5f5f5;
+}
+.section:nth-of-type(odd){
+  background-color:white;
+  border-bottom:1px solid #f5f5f5;
+}
+
+#df-fields{
+  width:calc(100% - 60px);
+  margin:0px auto 0px;
+  padding:130px 0px 0px 0px;
+}
+
+#df-header{
+  position:fixed;
+  top:30px;
+  width:calc(100% - 200px);
+  padding:30px 20px 30px 20px;
+  margin:0px 0px 15px 0px;
+  background-color:white;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+#df-header input{
+  width:50%;
+  border-radius: 10px;
+  padding:5px 10px;
+  border-color: #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#df-header input:focus{
+  outline: 3px solid #ebf5fa;
+  border-color: #399ccb;
+}
+#df-header h1{
+  font-size: 21px;
+  font-weight: 400;
+  margin:0px 16px 0px 0px;
+  padding:0px;
+}
+#df-header #header-buttons{
+  margin-left:auto;
+  display:flex;
+}
+
+
+
+#df-slug{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+#df-slug label{
+  color:black;
+  margin:0px 20px 10px 0px;
+  display:block;
+}
+#df-slug input{
+  width:50%;
+  border-radius: 10px;
+  padding:5px 10px;
+  border-color: #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#df-slug input:focus{
+  outline: 3px solid #ebf5fa;
+  border-color: #399ccb;
+}
+
+
+
+#df-description{
+  
+}
+#df-description label{
+  color:black;
+  margin:0px 20px 10px 0px;
+  display:block;
+}
+#df-description textarea{
+  width:50%;
+  border-radius: 10px;
+  padding:5px 10px;
+  border-color: #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#df-description textarea:focus{
+  outline: 3px solid #ebf5fa;
+  border-color: #399ccb;
+}
+
+
+#df-cat{
+  
+}
+#df-cat label{
+  color:black;
+  margin:0px 20px 10px 0px;
+  display:block;
+}
+#df-cat input{
+  width:50%;
+  border-radius: 10px;
+  padding:5px 10px;
+  border-color: #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#df-cat input:focus{
+  outline: 3px solid #ebf5fa;
+  border-color: #399ccb;
+}
+
+
+
+#df-icon{
+  
+}
+#df-icon label{
+  color:black;
+  margin:0px 20px 10px 0px;
+  display:block;
+}
+#dashicon-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  width:100%;
+}
+#dashicon-grid .dashicon-choice{
+  height:30px; width:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  outline: 1px solid transparent !important;
+  border:3px solid transparent !important;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .4);
+  border-radius:10px;
+  cursor:pointer;
+}
+#dashicon-grid .selected{
+  outline: 1px solid #ebf5fa !important;
+  border:3px solid #399ccb !important;
+  background-color:#eeeeee !important;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+  border-radius:10px;
+}
+
+
+
+#df-image{
+  
+}
+#df-image label{
+  color:black;
+  margin:0px 20px 10px 0px;
+  display:block;
+}
+#df-image input{
+  width:75%;
+  border-radius: 10px;
+  padding:5px 10px;
+  border-color: #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#df-image input:focus{
+  outline: 3px solid #ebf5fa;
+  border-color: #399ccb;
+}
+
+
+
+#df-mode{
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#df-mode label{
+  color:black;
+  margin:0px 20px 10px 0px;
+  display:block;
+}
+#df-mode select{
+  border-radius: 10px;
+  padding:5px 10px;
+  width:150px;
+  border-color: #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, .1);
+}
+#df-mode select:focus{
+  outline: 3px solid #ebf5fa;
+  border-color: #399ccb;
+}
+
+
+
+
+
+
+#dashicon-grid .dashicon-choice {
+  transition: border 0.2s;
+}
+
+#dashicon-grid .dashicon-choice.selected {
+  border: 2px solid #007cba;
+  background: #f0f8ff;
+}
+
+
+
+
+
+#message{
+    position: fixed;
+    top: 50px; right: 20px;
+    z-index: 9;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width: calc(100% - 200px);
+    box-sizing: border-box;
+    min-height: 48px;
+    margin: 0px !important;
+    padding: 13px 16px 12px 20px !important;
+    background-color: #edf7ef;
+    border: 1px solid #b6deb9;
+    border-radius: 10px;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, .2);
+}
+#message p{
+ font-size:18px;
+ color: #344054;;
+ margin:0px;
+}
+#message button{
+  top:10px;
+}
