@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Register Blocks for ACF
- * Description: Rsgister, edit, and delete custom ACF blocks via the WordPress admin.
- * Version: 1.0.1
+ * Description: Register, edit, and delete custom ACF blocks via the WordPress admin.
+ * Version: 1.0.0
  * Author: Dan Freeman 
  */
 
