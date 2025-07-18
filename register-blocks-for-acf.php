@@ -21,8 +21,8 @@ add_filter('upload_mimes', function ($mimes) {
 add_action('admin_enqueue_scripts', function ($hook) {
     if ('post.php' === $hook || 'post-new.php' === $hook) {
         wp_enqueue_media();
-        wp_enqueue_script('acf-dynamic-blocks-admin', plugin_dir_url(__FILE__) . 'media-uploader.js', ['jquery'], null, true);
-        wp_enqueue_style('acf-dynamic-blocks-admin-style', plugin_dir_url(__FILE__) . 'admin.css');
+        wp_enqueue_script('acf-dynamic-blocks-admin', plugin_dir_url(__FILE__) . 'main.js', ['jquery'], null, true);
+        wp_enqueue_style('acf-dynamic-blocks-admin-style', plugin_dir_url(__FILE__) . 'style.css');
     }
 });
 
