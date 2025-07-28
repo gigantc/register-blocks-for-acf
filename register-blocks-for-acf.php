@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Register Blocks for ACF
  * Description: Register, edit, and delete custom ACF blocks via the WordPress admin.
- * Version: 1.0.0
+ * Version: 1.0.2
  * Author: Dan Freeman 
  */
 
@@ -16,6 +16,119 @@ add_filter('upload_mimes', function ($mimes) {
     $mimes['png'] = 'image/png';
     return $mimes;
 });
+
+//add a body class to disable css leaking
+add_filter('admin_body_class', function ($classes) {
+    $screen = get_current_screen();
+    if ($screen && $screen->post_type === 'acf_block_template') {
+        $classes .= ' rbfacf';
+    }
+    return $classes;
+});
+
+
+//tell WPGraphQL to expose Gutenberg blocks.
+add_action('plugins_loaded', function () {
+  // Make sure both ACF and WPGraphQL are loaded and active
+  if (
+    function_exists('acf') &&
+    class_exists('WPGraphQL')
+  ) {
+
+    // Now add your custom GraphQL types and fields
+    add_action('graphql_register_types', function () {
+      register_graphql_scalar('JSON', [
+        'description' => __('The `JSON` scalar type represents JSON values.'),
+        'serialize' => function($value) { return $value; },
+        'parseValue' => function($value) { return $value; },
+        'parseLiteral' => function($ast) { return $ast->value ?? null; },
+      ]);
+      //register the ACF Fields
+      register_graphql_field('Page', 'acfFields', [
+        'type' => 'JSON',
+        'resolve' => function ($post) {
+          return get_fields($post->ID);
+        }
+      ]);
+
+      //////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////
+      // register the blocks
+      // this should get all data in blocksRaw in graphQL
+      register_graphql_field('Page', 'blocksRaw', [
+            'type' => 'JSON',
+            'resolve' => function ($post) {
+                // Log the incoming post object for debugging
+                error_log('POST RESOLVER: ' . print_r($post, true));
+
+                $post_id = null;
+                $blocks = null;
+
+                // Check if we have a post object with direct post_content
+                if (is_object($post)) {
+                    if (isset($post->post_content)) {
+                        // If post_content is present, parse blocks from it
+                        $blocks = parse_blocks($post->post_content ?? '');
+                    } elseif (isset($post->ID)) {
+                        // If only ID is present, remember it to load the post later
+                        $post_id = $post->ID;
+                    } elseif (method_exists($post, 'ID')) {
+                        // If ID() is a method, call it (WPGraphQL model)
+                        $post_id = $post->ID();
+                    } elseif (isset($post->data) && isset($post->data->ID)) {
+                        // If nested in $post->data, get that ID
+                        $post_id = $post->data->ID;
+                    }
+                }
+
+                // If blocks haven't been parsed and we have a post ID, load the post and parse blocks
+                if (!isset($blocks) && $post_id) {
+                    $p = get_post($post_id);
+                    $blocks = parse_blocks($p->post_content ?? '');
+                }
+
+                // If we *still* don't have blocks, bail out with an empty array
+                if (!isset($blocks)) {
+                    error_log('NO post_content found');
+                    return [];
+                }
+
+                /**
+                 * Filter out "blank" blocks that Gutenberg sometimes creates because it's wierd.
+                 * A block is considered blank if:
+                 *  - It has no blockName (blockName is null or empty)
+                 *  - It has no meaningful content (innerHTML and innerContent are both empty/whitespace)
+                 */
+                $blocks = array_filter($blocks, function($block) {
+                    // True if blockName is present and non-empty
+                    $hasName = !empty($block['blockName']);
+
+                    // True if innerHTML is non-empty/whitespace OR innerContent has any non-empty item
+                    $hasContent =
+                        !empty(trim($block['innerHTML'] ?? '')) ||
+                        !empty(array_filter(
+                            $block['innerContent'] ?? [],
+                            function($c) { return trim($c) !== ''; }
+                        ));
+
+                    // Keep the block if it has a name or real content
+                    return $hasName || $hasContent;
+                });
+
+                // Re-index the array (array_filter preserves keys)
+                return array_values($blocks);
+            }
+        ]);
+
+
+
+
+
+    });
+  }
+});
+
+
 
 // Enqueue media uploader scripts for admin
 add_action('admin_enqueue_scripts', function ($hook) {
@@ -290,8 +403,14 @@ add_action('acf/init', function () {
             'keywords' => [$cat],
             'icon' => $dashicon,
             'mode' => $mode,
-            'render_callback' => 'acf_dynamic_blocks_render',
-            'supports' => ['align' => false],
+            'render_template' => false,
+            'render_callback' => function($block) {
+                echo '<div>Block Rendered: ' . esc_html($block['title']) . '</div>';
+            },
+            'supports' => [
+                'align' => false,
+                'jsx' => true,
+            ],
         ];
 
         if ($preview_img && filter_var($preview_img, FILTER_VALIDATE_URL)) {
